@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Pet"> 
+ 
+ <!-- 펫등록 -->
+ <insert id="admin_pet_writ" parameterType="pet" useGeneratedKeys="true" keyProperty="pet_number">
+INSERT INTO PET VALUES(PET_NUMBER_SEQ.nextval,#{pet_size},#{pet_kategorie},#{pet_name},
+#{pet_live},#{pet_hit},#{pet_price},#{pet_adopt},0,
+#{pet_profile},#{pet_trailer},#{pet_contents},#{pet_inoculation})
+<selectKey keyProperty="pet_number" resultType="int" order="AFTER">
+SELECT PET_NUMBER_SEQ.CURRVAL FROM DUAL
+</selectKey>
+</insert>
+ 
+ 
+ <!-- 강아지 ALL목록  페이징 카운트  -->
+<select id="Pet_Dog_allList_Count" resultType="int">
+		SELECT COUNT(*) FROM PET 
+</select>
+ 
+ <!-- 강아지 ALL목록 페이징처리 -->
+<select id="Pet_Dog_allList_Paging" resultType="pet" parameterType="page">
+	SELECT * FROM PET_LIST WHERE PET_LIST.RN BETWEEN #{startRow} AND #{endRow}
+</select>
+
+ <!-- 강아지상세 게시글불러오기  -->
+<select id="Pet_Dog_View" parameterType="pet" resultType="pet">
+ SELECT * FROM PET WHERE pet_number=#{pet_number}
+</select>
+
+<!--펫 추천  -->
+<update id="like_check" parameterType="pet">
+    UPDATE PET SET pet_hit =pet_hit+ 1 WHERE pet_number=#{pet_number}
+  </update>
+  
+  <!-- 펫 추천 취소  -->
+<update id="like_check_cancel" parameterType="pet">
+     UPDATE PET SET pet_hit =0 WHERE pet_number=#{pet_number}
+  </update>
+
+
+ </mapper>
