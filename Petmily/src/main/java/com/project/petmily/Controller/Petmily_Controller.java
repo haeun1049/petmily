@@ -44,5 +44,11 @@ public class Petmily_Controller {
 		return "AdoptReview_Write";
 	}
 	
+	/* 분양신청 후 예약완료창 */
+	@RequestMapping(value = "/adoptSuccess")
+	public String adoptSuccess() {
+		
+		return "AdoptSuccess";
+	}
 
 }

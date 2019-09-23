@@ -7,14 +7,20 @@
 <title>Insert title here</title>
 </head>
 <style>
-h1{
+h1, h3{
+	text-align:center;
+}
+input{
 	text-align:center;
 }
 </style>
 <body>
 <%@include file="header-area.jsp"%>
 <br>
-<h1>예약 완료되었습니다.</h1>
+<input type="text" name="a_number" value="${a_number}">
+<input type="text" name="a_adminconfirm" value="${aDTO.a_adminconfirm}">
+<h1>분양 신청이 완료되었습니다.</h1>
+<h3>관리자 확인 후 분양 상태 확인 가능합니다. 마이페이지에서 확인해주시기 바랍니다.</h3>
 <br>
 <%@include file="footer-area.jsp"%>
 </body>

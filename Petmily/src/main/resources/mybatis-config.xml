@@ -11,3 +11,4 @@
 		<typeAlias alias="adopt" type="com.project.petmily.DTO.Adopt_DTO"/>
 	</typeAliases>
 </configuration>
+

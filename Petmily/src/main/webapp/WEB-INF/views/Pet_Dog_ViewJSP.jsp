@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 table{
 border-top: 1px solid #444444;
@@ -86,12 +87,22 @@ function like_func2(){
   });
 }
 
+function idconfirm(){
+	if(${sessionScope.sessionId == null}){
+		alert('로그인 후 신청가능합니다.로그인 후 이용해주세요.');
+		history.back();
+	} else if(${sessionScope.sessionId != null}){
+		idid.submit();
+	}
+	
+}
 </script>
 </head>
 <body>
+
 <table style="margin-left: auto; margin-right: auto;">
 <tr>
-<th>펫번호</th><th>견종</th> <th>나이</th> <th>분양 가격</th> 
+<th>펫번호</th><th>견종</th><th>나이</th><th>분양 가격</th> 
 </tr>
 <tr>
 <td>${DogView.pet_number}</td>
@@ -117,12 +128,14 @@ function like_func2(){
 </c:otherwise>
 </c:choose>
 </div>
-<form action="goadopt" method="post"> 
+<form action="goadopt" method="post" name="idid"> 
 <input type="text" name="a_petnumber" value="${DogView.pet_number}">
 <input type="hidden" name="a_petcategorie" value="${DogView.pet_kategorie}">
 <input type="hidden" name="a_petname" value="${DogView.pet_name}">
 <input type="hidden" name="a_petprice" value="${DogView.pet_price}">
-<input type="submit" value="분양신청">
 </form>
+<c:if test="${sessionScope.sessionId ne 'admin'}">
+<button onclick="idconfirm()">분양신청</button>
+</c:if>
 </body>
 </html>

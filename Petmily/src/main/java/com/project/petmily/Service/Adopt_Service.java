@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import com.project.petmily.DAO.Adopt_DAO;
 import com.project.petmily.DTO.AdoptReview_DTO;
@@ -25,14 +26,28 @@ public class Adopt_Service {
 		int writeResult = a_DAO.a_write(aDTO);
 System.out.println("writeResult :"+writeResult );
 		if (writeResult > 0) {
-			
-			mav.setViewName("AdoptSuccess");
+			mav.addObject("aDTO", aDTO);
+			mav.setViewName("KakaoApi");
 		} else {
 			mav.setViewName("Adopt_Write");
 		}
 		return mav;
 	}
 
+	/* 분양 완료 후 분양성공 유무 */
+	public ModelAndView a_adoptConfirm(int a_number) {
+		mav = new ModelAndView();
+		
+		int adoptSuccess = a_DAO.a_adoptConfirm(a_number);
+		
+		if(adoptSuccess > 0) {
+			mav.setViewName("AdoptSuccess");
+		} else {
+		}
+		return mav;
+	}
+
+	/* 분양 신청 목록 
 	public ModelAndView a_list(int page) {
 
 		mav = new ModelAndView();
@@ -71,6 +86,6 @@ System.out.println("writeResult :"+writeResult );
 		mav.setViewName("Adopt_List");
 		
 		return mav;
-	}
+	}*/
 
 }

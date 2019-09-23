@@ -41,7 +41,7 @@
 <td> 예약금 <input type="text" name="reservation" value="10,000원" readonly></td>
 </tr>
 <tr>
-<td><input type="submit" value="작성완료">
+<td><input type="submit" value="예약신청">
 <input type="reset" value="다시작성"></td>
 </tr>
 </table>

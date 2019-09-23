@@ -23,10 +23,10 @@ public class Adopt_Controller {
 	
 	/* 분양신청에 정보 가져오기  */ 
 	@RequestMapping(value = "/goadopt")
-	public ModelAndView goadopt(@ModelAttribute Adopt_DTO adto, @RequestParam("a_petnumber") int a_petnumber) {
+	public ModelAndView goadopt(@ModelAttribute Adopt_DTO adto) {
 		mav = new ModelAndView();
 		
-		mav.addObject("petNumber",a_petnumber);
+		mav.addObject("petNumber",adto.getA_petnumber());
 		mav.addObject("petCategorie",adto.getA_petcategorie());
 		mav.addObject("petName",adto.getA_petname());
 		mav.addObject("petPrice",adto.getA_petprice());
@@ -47,7 +47,7 @@ public class Adopt_Controller {
 		return mav;
 	}
 	
-	/* 분양 신청 목록 */
+	/* 분양 신청 목록 
 	@RequestMapping(value = "/a_list", method = RequestMethod.GET)
 	public ModelAndView a_list(@RequestParam("page") int page) {
 
@@ -59,9 +59,18 @@ public class Adopt_Controller {
 		mav = aService.a_list(page);
 
 		return mav;
+	}*/
+	
+	/* 분양 완료 후 분양성공 유무 */
+	@RequestMapping(value = "/a_adoptConfirm", method = RequestMethod.GET)
+	public ModelAndView a_adoptConfirm(@RequestParam("a_number") int a_number) {
+
+		mav = new ModelAndView();
+
+		mav = aService.a_adoptConfirm(a_number);
+		
+		return mav;
 	}
-	
-	
 	
 	
 

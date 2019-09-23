@@ -15,17 +15,23 @@
 		</selectKey>
 	</insert>
 	
-	<!-- 게시판 목록(페이징) -->
+	<!-- 조회수 처리 -->
+	<update id="a_adoptConfirm" parameterType="int">
+		UPDATE ADOPT SET A_ADMINCONFIRM=A_ADMINCONFIRM+1 WHERE A_NUMBER=#{a_number}
+	</update>
+	
+	<!-- 게시판 목록(페이징) 
 	<select id="a_list" resultType="adopt"
 		parameterType="page1">
 		SELECT AVIEW.*, AVIEW.RN FROM AVIEW WHERE
 		AVIEW.RN
 		BETWEEN #{startRow} AND #{endRow} ORDER BY AVIEW.RN DESC
-	</select>
+	</select>-->
 	
-	<!-- 후기글 갯수 가져오는 쿼리 -->
+	<!-- 후기글 갯수 가져오는 쿼리
 	<select id="listCount" resultType="int">
 		SELECT COUNT(*) FROM AVIEW
-	</select>
+	</select> -->
+	
 	
 </mapper>

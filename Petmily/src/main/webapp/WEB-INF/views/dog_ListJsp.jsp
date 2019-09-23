@@ -100,6 +100,7 @@ function like_func2(num){
 </script>
 </head>
 <body>
+
 <h2>미분양된 강아지 리스트all </h2>
 
 <c:forEach var="List" items="${Pet_Dog_allList}">
