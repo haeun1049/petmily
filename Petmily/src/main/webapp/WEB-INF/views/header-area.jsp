@@ -24,7 +24,7 @@
 
 <body>
 
-<!-- 로그인 모달창 -->
+   <!-- 로그인 모달창 -->
     <div class="subscribe-newsletter-area">
         <div class="modal fade" id="subsModal" tabindex="-1" role="dialog" aria-labelledby="subsModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -32,13 +32,13 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <div class="modal-body">
                        <!--  <h5 class="title">Login</h5> -->
-                        <form action="memberlogin" class="newsletterForm" method="post">
+                        <form action="Login_Login" class="newsletterForm" method="post">
                             ID <input type="text" name="id" id="id" placeholder="아이디" required>
                             PASSWORD <input type="password" name="password" id="password" placeholder="비밀번호" required>
                             <button type="submit" class="btn original-btn">Login</button>
                         </form>
                     </div>
-                   <a href="login">로그인 하러가기</a>
+                   <a href="Join_Naverlogin" class="btn original-btn">네이버 로그인 하러가기</a>
                     <a href="/petmily/find_id_fromJSP" class="btn original-btn">아이디 찾기</a>
                      <a href="/petmily/find_pw_fromJSP" class="btn original-btn">비밀번호 찾기</a>
                             <input type="button" class="btn original-btn" onclick="join();" value="회원가입">
@@ -64,7 +64,7 @@
 									<li><a href="#">새로운 펫 입소</a></li>
 									<li><a href="#">펫 분양시 사은품 증정!</a></li>
 									<li><a href="#">두 마리 입양시 추가할인</a></li>
-									<li><a href="#">멤버쉽 기간</a></li>
+									<li><a href="#">04.25 ~ 10.18 멤버쉽</a></li>
 								</ul>
 							</div>
 						</div>
@@ -77,8 +77,8 @@
 
 								<c:when test="${not empty sessionScope.sessionId}">
 									<a>'${sessionScope.sessionId}'님 환영합니다! </a>
-									<a href="logout">로그아웃</a>
-									<a href="mypage">마이페이지</a>
+									<a href="Login_LoginOut">로그아웃</a>
+									<a href="Mypage" class="btn subscribe-btn" title="마이페이지">Mypage</a>
 								</c:when>
 								<c:otherwise>
 									<a href="JoinForm" class="btn subscribe-btn"
@@ -143,6 +143,8 @@
 											<ul class="dropdown">
 												<li><a href="aboutUs">펫 용품 등록</a></li>
 												<li><a href="admin_pet">펫 등록</a></li>
+												<li><a href="#">전체 회원 리스트</a></li>
+												<li><a href="#">예약 신청 게시판</a></li>
 											</ul></li>
 									</c:if>
 
@@ -154,24 +156,20 @@
 
 									<li><a href="#">Pets</a>
 										<ul class="dropdown">
+										<li><a href="AdoptionprocedureJsp">분양안내</a></li>
 											<li><a href="#">입양 절차</a></li>
 
 											<li><a href="#">입양 신청</a></li>
 
-											<li><a href="Pet_Dog_List?page=1">강아지</a>
+																	<li><a href="Pet_Dog_List?page=1">강아지</a>
 												<ul class="dropdown">
-													<li><a href="#">대형견</a></li>
-													<li><a href="#">중형견</a></li>
-													<li><a href="#">소형견</a></li>
+													<li><a href="Pet_Dog_Big?page=1">대형견</a></li>
+													<li><a href="Pet_Dog_Medium?page=1">중형견</a></li>
+													<li><a href="Pet_Dog_Small?page=1">소형견</a></li>
 												</ul>
-											<li><a href="#">고양이</a></li>
+											<li><a href="Pet_Cat_List?page=1">고양이</a></li>
 
-											<li><a href="#">파충류</a>
-												<ul class="dropdown">
-													<li><a href="#">도마뱀</a></li>
-													<li><a href="#">곤충1</a></li>
-													<li><a href="#">곤충2</a></li>
-												</ul></li>
+											<li><a href="Pet_Reptile_List?page=1">파충류</a></li>
 										</ul></li>
 									<li><a href="contact.html">Pet Shop</a>
 										<ul class="dropdown">
@@ -212,9 +210,9 @@
 									<li><a href="#">All Menu</a>
 										<div class="megamenu">
 											<ul class="single-mega cn-col-4">
-												<li class="title">About</li>
-												<li><a href="#"><strong>회사 소개</strong></a></li>
-												<li><a href="#"><strong>공지사항</strong></a></li>
+									<li class="title">About</li>
+												<li><a href="#"><strong>회사 지점위치</strong></a></li>
+												<li><a href="Notice_List"><strong>공지사항</strong></a></li>
 											</ul>
 											<ul class="single-mega cn-col-4">
 												<li class="title">Pets</li>

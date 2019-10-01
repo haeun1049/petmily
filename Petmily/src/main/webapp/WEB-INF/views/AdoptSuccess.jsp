@@ -17,8 +17,8 @@ input{
 <body>
 <%@include file="header-area.jsp"%>
 <br>
-<input type="text" name="a_number" value="${a_number}">
-<input type="text" name="a_adminconfirm" value="${aDTO.a_adminconfirm}">
+<input type="text" name="a_number">
+<input type="text" name="a_adminconfirm">
 <h1>분양 신청이 완료되었습니다.</h1>
 <h3>관리자 확인 후 분양 상태 확인 가능합니다. 마이페이지에서 확인해주시기 바랍니다.</h3>
 <br>

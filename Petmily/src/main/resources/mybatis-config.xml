@@ -9,6 +9,7 @@
 		<typeAlias alias="ar" type="com.project.petmily.DTO.AdoptReview_DTO"/>
 		<typeAlias alias="page1" type="com.project.petmily.DTO.Page_DTO"/>
 		<typeAlias alias="adopt" type="com.project.petmily.DTO.Adopt_DTO"/>
+		 <typeAlias alias="notice" type="com.project.petmily.DTO.Notice_DTO"/>
 	</typeAliases>
 </configuration>
 

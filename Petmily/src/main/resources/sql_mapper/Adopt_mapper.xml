@@ -15,7 +15,7 @@
 		</selectKey>
 	</insert>
 	
-	<!-- 조회수 처리 -->
+	<!-- 분양 확인 -->
 	<update id="a_adoptConfirm" parameterType="int">
 		UPDATE ADOPT SET A_ADMINCONFIRM=A_ADMINCONFIRM+1 WHERE A_NUMBER=#{a_number}
 	</update>
@@ -32,6 +32,4 @@
 	<select id="listCount" resultType="int">
 		SELECT COUNT(*) FROM AVIEW
 	</select> -->
-	
-	
 </mapper>

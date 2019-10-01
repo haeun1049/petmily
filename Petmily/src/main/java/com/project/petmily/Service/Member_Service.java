@@ -29,7 +29,7 @@ public class Member_Service {
    //  private BCryptPasswordEncoder passEncoder;
 	 
 	
-	public ModelAndView memberJoin(Member_DTO memberDTO) {
+	public ModelAndView memberJoin(Member_DTO memberDTO){
 		mav=new ModelAndView();
 		int JoinResult=memberDAO.memberJoin(memberDTO);
 		if(JoinResult>0) {
@@ -51,15 +51,15 @@ public class Member_Service {
 				
 				// 보내는 사람 EMail, 제목, 내용 
 				String fromEmail = "suhun1008@naver.com"; // 보내는 사람 eamil
-				String fromName = "프로젝트테스트";  // 보내는 사람 이름
-				String subject = "이메일 발송 테스트"; // 제목
+				String fromName = "펫밀리";  // 보내는 사람 이름
+				String subject = "회원가입 인증 이메일"; // 제목
 				String msg = "";
 				
 				// 회원가입 메일 내용
 					subject = "Petmily 회원가입 인증 메일입니다.";
 					msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 					msg += "<h3 style='color: blue;'>";
-					msg += memberDTO.getId() + "님 회원가입을 환영합니다.</h3>";
+					msg += memberDTO.getId() + "님 펫밀리 회원가입을 환영합니다.</h3>";
 					msg += "<div style='font-size: 130%'>";
 					msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
 					msg += "<form method='post' action='http://localhost:8090/petmily/approval_member.do'>";
@@ -110,26 +110,31 @@ public class Member_Service {
 					}
 				}
 
-	public ModelAndView memberLogin(Member_DTO memberDTO,HttpServletResponse response) throws IOException {
-		response.setContentType("test/html; charset=UTF-8");
+	public ModelAndView Login_Login(Member_DTO id,HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		mav=new ModelAndView();
-		Member_DTO LoginResult=memberDAO.memberLogin(memberDTO);
-		if(LoginResult!=null) {
+		Member_DTO LoginResult=memberDAO.Login_Login(id);
+		if(LoginResult != null) {
 			session.setAttribute("sessionId", LoginResult.getId());
-			mav.addObject("loginMember",LoginResult);
 			mav.setViewName("home");
-		}else {
-			out.println("<script>");
-			out.println("alert('아이디 혹은 비밀번호가 틀립니다.');");
-			out.println("</script>");
+		}else{
+			out.print("<script>");
+			out.print("alert('존재하지 않는 아이디거나 비밀번호가 일치하지않습니다.');history.go(-1);");
+			out.print("</script>");
+			out.close();
+		}
+		if(LoginResult.getAppoval_status().contentEquals("0")) {
+			out.print("<script>");
+			out.print("alert('이메일 인증을 해주세요');history.go(-1);");
+			out.print("</script>");
 			out.close();
 		}
 		return mav;
 	}
 
-	public String idOverlap(String id) {
-		String overlapId=memberDAO.idOverlap(id);
+	public String Join_IdCheck(String id) {
+		String overlapId=memberDAO.Join_IdCheck(id);
 		String resultMsg;
 		if(overlapId==null) {
 			resultMsg="OK";
@@ -171,6 +176,7 @@ public class Member_Service {
 	public ModelAndView memberView(String id)  {
 		mav=new ModelAndView();
 		Member_DTO memberView= memberDAO.memberView(id);
+		System.out.println("서비스 세션"+id);
 			mav.addObject("memberView",memberView);
 			mav.setViewName("MemberView");
 			return mav;
@@ -181,9 +187,9 @@ public class Member_Service {
 		Member_DTO Result=memberDAO.memberView(id);
 		if(Result!=null) {
 			mav.addObject("memberModify",Result);
-			mav.setViewName("MemberModify");
+			mav.setViewName("Mypage_MyDataModify");
 		}else {
-			mav.setViewName("MemberList");
+			mav.setViewName("Mypage");
 		}
 		return mav;
 	}
@@ -199,7 +205,8 @@ public class Member_Service {
 		mav=new ModelAndView();
 		int result=memberDAO.memberDelete(id);
 		if(result>0) {
-			mav.setViewName("redirect:/memberlogin");
+			session.invalidate();
+			mav.setViewName("home");
 		}
 			return mav;
 		
@@ -220,7 +227,7 @@ public class Member_Service {
 					
 					// 보내는 사람 EMail, 제목, 내용 
 					String fromEmail = "suhun1008@naver.com"; // 보내는 사람 eamil
-					String fromName = "Petmily 관리자";  // 보내는 사람 이름
+					String fromName = "펫밀리";  // 보내는 사람 이름
 					String subject = "비번찾기이메일 발송"; // 제목
 					String msg = "";
 					String name = memberDTO.getId();
@@ -265,12 +272,12 @@ public class Member_Service {
 				
 				// 비밀번호 찾기
 				
-				public void find_pw(Member_DTO memberDTO,HttpServletResponse response) throws Exception {
+				public void Login_PasswordFind(Member_DTO memberDTO,HttpServletResponse response) throws Exception {
 					mav = new ModelAndView();
 					response.setContentType("text/html;charset=utf-8");
 					PrintWriter out = response.getWriter();
 					// 아이디가 없으면
-					if(memberDAO.idOverlap(memberDTO.getId()) == null) {
+					if(memberDAO.Join_IdCheck(memberDTO.getId()) == null) {
 						out.print("존재하지않는 아이디입니다.");
 						out.close();
 					}
@@ -290,6 +297,7 @@ public class Member_Service {
 					}
 				}
 				public void idFind(Member_DTO memberDTO ,HttpServletResponse response) throws Exception {
+					System.out.println("memberDAO 아이디"+memberDTO.getId());
 					String id = memberDAO.select_id(memberDTO);
 					String charSet = "UTF-8";
 					String hostSMTP = "smtp.naver.com";		
@@ -342,6 +350,18 @@ public class Member_Service {
 							out.close();
 						
 				}
+
+					public ModelAndView navermemberjoin(Member_DTO memberDTO) {
+						mav=new ModelAndView();
+						int JoinResult=memberDAO.navermemberjoin(memberDTO);
+						if(JoinResult>0) {
+							mav.setViewName("home");
+						}else {
+							mav.setViewName("navermemberjoin");
+						}
+						return mav;
+					}
+					
 					
 
 
